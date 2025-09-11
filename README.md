@@ -7,13 +7,13 @@ Aqui você encontrará anotações, exercícios, pequenos projetos e experimento
 
 ## 🎯 Meus Objetivos
 
-- 🧠 Aprimorar meus conhecimentos em **Java e programação orientada a objetos**
-- 🚀 Aprender a construir **APIs RESTful com Spring Boot**
-- 💻 Fortalecer minhas bases em **HTML5, CSS3 e JavaScript**
-- ⚛️ Desenvolver interfaces modernas e interativas usando **React.js**
-- 🧩 Integrar o **front-end com o back-end** em projetos completos
-- 📂 Criar um **portfólio sólido de projetos práticos**
-- 💼 Estar preparado(a) para atuar profissionalmente como desenvolvedor(a) Full Stack
+- Aprimorar meus conhecimentos em **Java e programação orientada a objetos**
+- Aprender a construir **APIs RESTful com Spring Boot**
+- Fortalecer minhas bases em **HTML5, CSS3 e JavaScript**
+- Desenvolver interfaces modernas e interativas usando **React.js**
+- Integrar o **front-end com o back-end** em projetos completos
+- Criar um **portfólio sólido de projetos práticos**
+- Estar preparado(a) para atuar profissionalmente como desenvolvedor(a) Full Stack
 
 ---
 
