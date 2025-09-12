@@ -1,38 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Cadastros</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cadastros — Mini App</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-    <div class="container">
-        <h1>Cadastro de Usuários</h1>
-        <form id="cadastroForm">
-            <input type="text" id="nome" placeholder="Nome" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="tel" id="telefone" placeholder="Telefone" required>
-            <button type="submit">Adicionar Cadastro</button>
-        </form>
-
-        <table id="tabela">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Telefone</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+  <header class="topbar">
+    <h1>Cadastros</h1>
+    <div class="controls">
+      <input id="search" type="search" placeholder="Buscar por nome ou email..." />
+      <button id="btnAdd" class="primary">+ Novo</button>
     </div>
+  </header>
 
-    <script src="script.js"></script>
+  <main class="main">
+    <div class="card">
+      <table id="table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th style="width:140px">Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p id="emptyText" class="muted">Nenhum cadastro ainda — clique em <strong>+ Novo</strong> para começar.</p>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <header class="modal-header">
+        <h2 id="modalTitle">Novo cadastro</h2>
+        <button id="closeModal" class="icon-btn">✕</button>
+      </header>
+
+      <form id="form" class="modal-form">
+        <input id="name" type="text" placeholder="Nome" required />
+        <input id="email" type="email" placeholder="Email" required />
+        <input id="phone" type="tel" placeholder="Telefone" />
+        <div class="modal-actions">
+          <button type="button" id="cancel" class="ghost">Cancelar</button>
+          <button type="submit" class="primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
-
 </html>
