@@ -1,96 +1,36 @@
-class Usuario {
-  constructor(nome, email, idade) {
-    this.nome = nome;
-    this.email = email;
-    this.idade = idade;
-  }
+// Alternância de tema (claro/escuro)
+const toggleBtn = document.getElementById("toggleTheme");
+const body = document.body;
+body.classList.add("light");
+
+toggleBtn.addEventListener("click", () => {
+  body.classList.toggle("dark");
+  body.classList.toggle("light");
+  toggleBtn.textContent = body.classList.contains("dark") ? "☀️ Mudar Tema" : "🌙 Mudar Tema";
+});
+
+// Dados do gráfico
+const canvas = document.getElementById("chart");
+const ctx = canvas.getContext("2d");
+
+const dados = [12, 48, 23, 35, 15];
+const cores = ["#0077ff", "#00cc88", "#ffaa00", "#ff5555", "#9933ff"];
+
+function desenharGrafico() {
+  const total = dados.reduce((a, b) => a + b, 0);
+  let anguloInicial = 0;
+
+  dados.forEach((valor, i) => {
+    const angulo = (valor / total) * 2 * Math.PI;
+    ctx.beginPath();
+    ctx.moveTo(150, 150);
+    ctx.arc(150, 150, 120, anguloInicial, anguloInicial + angulo);
+    ctx.fillStyle = cores[i];
+    ctx.fill();
+    anguloInicial += angulo;
+  });
 }
 
-class Cadastro {
-  constructor() {
-    this.usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    this.tabela = document.querySelector("#tabelaUsuarios tbody");
-    this.form = document.querySelector("#cadastroForm");
-    this.modoEscuroBtn = document.querySelector("#toggleTheme");
-
-    this.renderizar();
-    this.eventos();
-  }
-
-  eventos() {
-    this.form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      this.adicionarUsuario();
-    });
-
-    this.modoEscuroBtn.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-    });
-  }
-
-  adicionarUsuario() {
-    const nome = document.querySelector("#nome").value.trim();
-    const email = document.querySelector("#email").value.trim();
-    const idade = document.querySelector("#idade").value.trim();
-
-    if (!nome || !email || !idade) {
-      alert("Preencha todos os campos!");
-      return;
-    }
-
-    const novo = new Usuario(nome, email, idade);
-    this.usuarios.push(novo);
-    this.salvar();
-    this.renderizar();
-
-    this.form.reset();
-  }
-
-  editarUsuario(index) {
-    const usuario = this.usuarios[index];
-    document.querySelector("#nome").value = usuario.nome;
-    document.querySelector("#email").value = usuario.email;
-    document.querySelector("#idade").value = usuario.idade;
-
-    this.usuarios.splice(index, 1);
-    this.salvar();
-    this.renderizar();
-  }
-
-  excluirUsuario(index) {
-    if (confirm("Tem certeza que deseja excluir este usuário?")) {
-      this.usuarios.splice(index, 1);
-      this.salvar();
-      this.renderizar();
-    }
-  }
-
-  salvar() {
-    localStorage.setItem("usuarios", JSON.stringify(this.usuarios));
-  }
-
-  renderizar() {
-    this.tabela.innerHTML = "";
-
-    this.usuarios.forEach((usuario, index) => {
-      const row = document.createElement("tr");
-
-      row.innerHTML = `
-        <td>${usuario.nome}</td>
-        <td>${usuario.email}</td>
-        <td>${usuario.idade}</td>
-        <td>
-          <button class="action-btn edit">Editar</button>
-          <button class="action-btn delete">Excluir</button>
-        </td>
-      `;
-
-      row.querySelector(".edit").addEventListener("click", () => this.editarUsuario(index));
-      row.querySelector(".delete").addEventListener("click", () => this.excluirUsuario(index));
-
-      this.tabela.appendChild(row);
-    });
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => new Cadastro());
+canvas.width = 300;
+canvas.height = 300;
+desenharGrafico();

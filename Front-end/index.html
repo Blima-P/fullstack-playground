@@ -1,58 +1,38 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sistema de Cadastro</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Interativo</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>📋 Sistema de Cadastro</h1>
-    <button id="toggleTheme">🌙 Modo Escuro</button>
-  </header>
+  <aside class="sidebar">
+    <h2>Meu Painel</h2>
+    <nav>
+      <a href="#">📊 Dashboard</a>
+      <a href="#">📂 Projetos</a>
+      <a href="#">⚙️ Configurações</a>
+    </nav>
+    <button id="toggleTheme">🌙 Mudar Tema</button>
+  </aside>
 
-  <main><dd></dd>
-    <section class="form-section">
-      <h2>Novo Cadastro</h2>
-      <form id="cadastroForm">
-        <div class="form-control">
-          <label for="nome">Nome:</label>
-          <input type="text" id="nome" required />
-        </div>
-        <div class="form-control">
-          <label for="email">E-mail:</label>
-          <input type="email" id="email" required />
-        </div>
-        <div class="form-control">
-          <label for="idade">Idade:</label>
-          <input type="number" id="idade" min="1" required />
-        </div>
-        <button type="submit">Cadastrar</button>
-      </form>
+  <main class="content">
+    <header>
+      <h1>Bem-vindo!</h1>
+      <p>Veja abaixo os dados atualizados.</p>
+    </header>
+
+    <section class="cards">
+      <div class="card">🚀 Projetos: <span id="projetos">12</span></div>
+      <div class="card">👥 Usuários: <span id="usuarios">48</span></div>
+      <div class="card">💰 Receita: R$ <span id="receita">2.300</span></div>
     </section>
 
-    <section class="list-section">
-      <h2>Usuários Cadastrados</h2>
-      <table id="tabelaUsuarios">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Idade</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Registros aparecem aqui -->
-        </tbody>
-      </table>
+    <section class="grafico">
+      <canvas id="chart"></canvas>
     </section>
   </main>
-
-  <footer>
-    <p>Desenvolvido por Pedro Braga 💻</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
