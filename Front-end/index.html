@@ -1,56 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Cadastros — Mini App</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Interativo</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
-    <h1>Cadastros</h1>
-    <div class="controls">
-      <input id="search" type="search" placeholder="Buscar por nome ou email..." />
-      <button id="btnAdd" class="primary">+ Novo</button>
-    </div>
-  </header>
+  <aside class="sidebar">
+    <h2>Meu Painel</h2>
+    <nav>
+      <a href="#">📊 Dashboard</a>
+      <a href="#">📂 Projetos</a>
+      <a href="#">⚙️ Configurações</a>
+    </nav>
+    <button id="toggleTheme">🌙 Mudar Tema</button>
+  </aside>
 
-  <main class="main">
-    <div class="card">
-      <table id="table">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th style="width:140px">Ações</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <p id="emptyText" class="muted">Nenhum cadastro ainda — clique em <strong>+ Novo</strong> para começar.</p>
-    </div>
+  <main class="content">
+    <header>
+      <h1>Bem-vindo!</h1>
+      <p>Veja abaixo os dados atualizados.</p>
+    </header>
+
+    <section class="cards">
+      <div class="card">🚀 Projetos: <span id="projetos">12</span></div>
+      <div class="card">👥 Usuários: <span id="usuarios">48</span></div>
+      <div class="card">💰 Receita: R$ <span id="receita">2.300</span></div>
+    </section>
+
+    <section class="grafico">
+      <canvas id="chart"></canvas>
+    </section>
   </main>
-
-  <!-- Modal -->
-  <div id="modal" class="modal hidden">
-    <div class="modal-card">
-      <header class="modal-header">
-        <h2 id="modalTitle">Novo cadastro</h2>
-        <button id="closeModal" class="icon-btn">✕</button>
-      </header>
-
-      <form id="form" class="modal-form">
-        <input id="name" type="text" placeholder="Nome" required />
-        <input id="email" type="email" placeholder="Email" required />
-        <input id="phone" type="tel" placeholder="Telefone" />
-        <div class="modal-actions">
-          <button type="button" id="cancel" class="ghost">Cancelar</button>
-          <button type="submit" class="primary">Salvar</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
   <script src="script.js"></script>
 </body>
