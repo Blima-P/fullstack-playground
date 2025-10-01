@@ -1,0 +1,13 @@
+CREATE DATABASE BibliotecaDB;
+USE BibliotecaDB;
+
+CREATE TABLE Autores(
+autor_id int NOT NULL primary key,
+nome VARCHAR(100) NOT NULL,
+nacionalidade VARCHAR(50)
+);
+CREATE TABLE Editoras(
+ editora_id int primary key,
+ nome VARCHAR(50) NOT NULL UNIQUE,
+ cidade VARCHAR (100)
+);
