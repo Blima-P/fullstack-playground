@@ -1,13 +1,32 @@
-CREATE DATABASE BibliotecaDB;
-USE BibliotecaDB;
-
+CREATE DATABASE BibliotecaDB4;
+USE BibliotecaDB4;
 CREATE TABLE Autores(
-autor_id int NOT NULL primary key,
-nome VARCHAR(100) NOT NULL,
-nacionalidade VARCHAR(50)
+	autor_id int NOT NULL primary key,
+	nome VARCHAR(100) NOT NULL,
+	nacionalidade VARCHAR(50)
 );
 CREATE TABLE Editoras(
- editora_id int primary key,
- nome VARCHAR(50) NOT NULL UNIQUE,
- cidade VARCHAR (100)
+	editora_id int primary key,
+	nome VARCHAR(50) NOT NULL UNIQUE,
+	cidade VARCHAR (100)
 );
+CREATE TABLE livros(
+	livro_id int, 
+	titulo VARCHAR(255) not null,
+	ano_publicacao int,
+	autor_id int,
+	editora_id int,
+primary key (livro_id),
+CONSTRAINT fk_livro_autor FOREIGN KEY (autor_id) REFERENCES Autores(autor_id),
+CONSTRAINT fk_livro_editora FOREIGN KEY (editora_id) REFERENCES Editoras(editora_id)
+);
+CREATE TABLE livros_antigos
+	(id INT);
+	ALTER TABLE Autores
+ADD email VARCHAR(100);
+	ALTER TABLE Livros
+MODIFY COLUMN titulo VARCHAR(300);
+	ALTER TABLE Editoras 
+DROP COLUMN cidade;
+DROP TABLE livros_antigos;
+TRUNCATE TABLE Livros;
