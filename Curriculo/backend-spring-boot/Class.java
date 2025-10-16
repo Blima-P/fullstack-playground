@@ -1,13 +1,189 @@
-y
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-/**
- *
- * @author pedroblima
- */
-public class Class {
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
+public class SistemaCompleto {
+
+    static class Endereco {
+        private String rua;
+        private String cep;
+
+        public Endereco(String rua, String cep) {
+            this.rua = rua;
+            this.cep = cep;
+        }
+
+        public void exibirEndereco() {
+            System.out.println("Endereço: " + rua + ", CEP: " + cep);
+        }
+    }
+
+    static abstract class Pessoa {
+        private String nome;
+        private Endereco endereco;
+
+        public Pessoa(String nome, Endereco endereco) {
+            this.nome = nome;
+            this.endereco = endereco;
+        }
+
+        public abstract void exibirDetalhes();
+
+        public String getNome() { return nome; }
+        public Endereco getEndereco() { return endereco; }
+    }
+
+    static class Autor extends Pessoa {
+        private String ID;
+
+        public Autor(String nome, Endereco endereco, String ID) {
+            super(nome, endereco);
+            this.ID = ID;
+        }
+
+        @Override
+        public void exibirDetalhes() {
+            System.out.println("\n-- Detalhes do Autor --");
+            System.out.println("Nome: " + getNome());
+            getEndereco().exibirEndereco();
+            System.out.println("ID: " + ID.substring(0, Math.min(ID.length(), 30)) + "...");
+            }
+    }
+
+    interface Emprestavel {
+        void emprestar();
+        void devolver();
+        boolean estaEmprestado();
+    }
+
+    static class Livro implements Emprestavel {
+        private String titulo;
+        private Autor autor;
+        private boolean emprestado = false;
+        private LocalDate dataEmprestimo;
+
+        public Livro(String titulo, Autor autor) {
+            this.titulo = titulo;
+            this.autor = autor;
+        }
+
+        @Override
+        public void emprestar() {
+            if (!emprestado) {
+                this.emprestado = true;
+                this.dataEmprestimo = LocalDate.now();
+                System.out.println("Status: " + titulo + " emprestado em " + dataEmprestimo);
+            } else {
+                System.out.println("Status: " + titulo + " já está emprestado.");
+            }
+        }
+
+        @Override
+        public void devolver() {
+            if (emprestado) {
+                this.emprestado = false;
+                this.dataEmprestimo = null;
+                System.out.println("Status: " + titulo + " devolvido.");
+            }
+        }
+
+        @Override
+        public boolean estaEmprestado() {
+            return emprestado;
+        }
+
+        public String getTitulo() { return titulo; }
+        public LocalDate getDataEmprestimo() { return dataEmprestimo; }
+    }
+
+    interface CalculadorMultaStrategy {
+        double calcular(LocalDate dataVencimento, LocalDate dataDevolucao);
+    }
+
+    static class MultaPadrao implements CalculadorMultaStrategy {
+        private static final double VALOR_DIA = 0.50;
+
+        @Override
+        public double calcular(LocalDate dataVencimento, LocalDate dataDevolucao) {
+            if (dataDevolucao.isAfter(dataVencimento)) {
+                long diasAtraso = ChronoUnit.DAYS.between(dataVencimento, dataDevolucao);
+                return diasAtraso * VALOR_DIA;
+            }
+            return 0.0;
+        }
+    }
+
+    static class Biblioteca {
+        private String nome;
+        private List<Livro> acervo;
+        private CalculadorMultaStrategy calculadorMulta;
+        private static final int DIAS_EMPRESTIMO = 7;
+
+        public Biblioteca(String nome, CalculadorMultaStrategy strategy) {
+            this.nome = nome;
+            this.acervo = new ArrayList<>();
+            this.calculadorMulta = strategy;
+        }
+
+        public void adicionarLivro(Livro livro) {
+            this.acervo.add(livro);
+            System.out.println("Catálogo: Livro '" + livro.getTitulo() + "' adicionado.");
+        }
+
+        public double calcularMulta(Livro livro, int diasAtraso) {
+            if (livro.getDataEmprestimo() == null) {
+                return 0.0;
+            }
+
+            LocalDate dataVencimento = livro.getDataEmprestimo().plusDays(DIAS_EMPRESTIMO);
+            LocalDate dataDevolucao = dataVencimento.plusDays(diasAtraso);
+
+            System.out.println("Cálculo: Data de Vencimento: " + dataVencimento + ", Devolução Simulada: " + dataDevolucao);
+            return calculadorMulta.calcular(dataVencimento, dataDevolucao);
+        }
+
+        public void listarAcervo() {
+            System.out.println("\n--- Acervo Atual da " + nome + " ---");
+            for (Livro livro : acervo) {
+                System.out.println("- Título: " + livro.getTitulo() +
+                        " | Autor: " + livro.autor.getNome() +
+                        " | Emprestado: " + (livro.estaEmprestado() ? "Sim" : "Não"));
+            }
+            System.out.println("------------------------------------");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("--- INICIALIZAÇÃO DO SISTEMA DE BIBLIOTECA ---");
+
+        Endereco endAutor = new Endereco("Rua da Fantasia, 100", "01000-000");
+
+        Autor tolkien = new Autor("J.R.R. Tolkien", endAutor, "Famoso autor de fantasia e linguística.");
+
+        tolkien.exibirDetalhes();
+
+        Livro hobbit = new Livro("O Hobbit", tolkien);
+
+        CalculadorMultaStrategy multaPadrao = new MultaPadrao();
+
+        Biblioteca municipal = new Biblioteca("Biblioteca Municipal", multaPadrao);
+        municipal.adicionarLivro(hobbit);
+
+        municipal.listarAcervo();
+
+        System.out.println("\n--- TESTE DE EMPRÉSTIMO E DEVOLUÇÃO ---");
+        hobbit.emprestar();
+        hobbit.emprestar();
+
+        int diasAtrasoSimulado = 10;
+        double multa = municipal.calcularMulta(hobbit, diasAtrasoSimulado);
+
+        System.out.printf("Resultado: Multa calculada para %d dias de atraso: R$ %.2f\n", diasAtrasoSimulado, multa);
+
+        hobbit.devolver();
+        municipal.listarAcervo();
+    }
 }
