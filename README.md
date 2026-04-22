@@ -42,7 +42,7 @@ Aqui você encontrará anotações, exercícios, pequenos projetos e experimento
 ## 📌 Nota Pessoal
 
 > Este repositório representa meu compromisso com a evolução constante.  
-> Cada diretório, cada projeto e cada linha de código aqui escrita é parte da minha trajetória rumo a me tornar um(a) desenvolvedor(a) Full Stack completo(a).
+> Cada diretório, cada projeto e cada linha de código aqui escrita é parte da minha trajetória rumo a me tornar um desenvolvedor Full Stack completo.
 
 ---
 
